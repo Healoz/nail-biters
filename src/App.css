@@ -5,13 +5,52 @@
   font-family: 'Days One', sans-serif;
 }
 
-.shaking-text {
-  font-size: 1.3rem;
+/* Mobile */
+
+main {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* background-color: rgb(255, 255, 255); */
 }
 
-.shaking-letter {
-  display: inline-block;
-  white-space: pre;
+.game-scene {
+  background-color: rgba(0, 0, 255, 0.443);
+  height: 75%;
+  position: relative;
+  z-index: 1;
+}
+
+
+
+.move-selection {
+  background-color: rgba(255, 0, 0, 0.516);
+  height: 35%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.move-grid {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.62rem;
+  padding: 0.62rem;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+
+}
+
+/* Desktop */
+@media screen and (min-width: 1200px) {
+
 }
 
 

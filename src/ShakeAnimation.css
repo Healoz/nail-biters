@@ -1,3 +1,12 @@
+.shaking-text {
+  font-size: 1.3rem;
+}
+
+.shaking-letter {
+  display: inline-block;
+  white-space: pre;
+}
+
 .shake-1 {
     animation: shake-1 2s infinite;
   }
