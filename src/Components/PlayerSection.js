@@ -6,7 +6,7 @@ export default function PlayerSection(props) {
     return (
         <div className='player-section'>
             <div className='player'>
-                <CharacterInfo />
+                <CharacterInfo character={props.player}/>
                 <div className='player-sprite'>
                     <img src={PlayerSprite}></img>
                 </div>
@@ -14,7 +14,7 @@ export default function PlayerSection(props) {
             <div className='player-speech-bubble'>
                 <div className='speech-bubble-container'>
                     <div className='speech-bubble'>
-                        <p>Lorem ipsum dolor sit amet consectetur.</p>
+                        <p>{props.player.speechBubble}</p>
                     </div>
                 </div>
             </div>

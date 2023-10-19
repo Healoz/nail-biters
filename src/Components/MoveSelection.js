@@ -3,14 +3,12 @@ import Move from './Move';
 
 export default function MoveSelection(props) {
 
-    const moves = [1, 2, 3, 4]
-
-    const moveElements = moves.map(move => 
+    const moveElements = props.moves.map((move, index) => ( 
         <Move 
-            key={move} 
-            moveNumber={move}
+            key={index} 
+            moveName={move.name}
         />
-    )
+    ))
 
     return (
         <section className='move-selection'>
