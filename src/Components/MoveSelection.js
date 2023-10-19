@@ -3,10 +3,12 @@ import Move from './Move';
 
 export default function MoveSelection(props) {
 
-    const moveElements = props.moves.map((move, index) => ( 
+    const moveElements = props.moves.map((move) => ( 
         <Move 
-            key={index} 
+            key={move.id} 
             moveName={move.name}
+            moveSelected={props.moveSelected}
+            id={move.id} 
         />
     ))
 

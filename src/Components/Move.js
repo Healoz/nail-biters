@@ -3,6 +3,6 @@ import React, { useState, useEffect } from 'react';
 export default function MoveSelection(props) {
 
     return (
-        <button>{ props.moveName }</button>
+        <button onClick={() => props.moveSelected(props.id)}>{ props.moveName }</button>
     )
 }

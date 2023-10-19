@@ -25,7 +25,7 @@ function App() {
         />
         <MoveSelection 
           moves={player.moves}
-          moveSelected={()=> moveSelected(4)}     
+          moveSelected={moveSelected}     
         />
       </main>
       
