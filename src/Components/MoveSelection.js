@@ -14,7 +14,7 @@ export default function MoveSelection(props) {
 
     return (
         <section className='move-selection'>
-          <div className='move-grid'>
+          <div className={`move-grid ${props.isPlayerTurn ? '' : 'move-grid-hidden'}`}>
             {moveElements}
           </div>
         </section>

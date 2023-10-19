@@ -6,7 +6,7 @@ export default function GameScene(props) {
 
     return (
         <section className='game-scene'>
-            <EnemySection enemy={props.enemy}/>
+            <EnemySection enemy={props.enemy} player={props.player}/>
             <PlayerSection player={props.player}/>
         </section>
     )

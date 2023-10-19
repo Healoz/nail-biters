@@ -1,6 +1,7 @@
 // characters.js
 export const playerStructure = {
     name: "Player name",
+    isCurrentTurn: true,
     maxHealth: 100,
     currentHealth: 100,
     maxMana: 100,

@@ -1,5 +1,6 @@
 import PlayerSprite from '../Images/player-placeholder.png';
 import CharacterInfo from './CharacterInfo';
+import SpeechBubble from './SpeechBubble';
 
 export default function PlayerSection(props) {
 
@@ -11,13 +12,7 @@ export default function PlayerSection(props) {
                     <img src={PlayerSprite}></img>
                 </div>
             </div>
-            <div className='player-speech-bubble'>
-                <div className='speech-bubble-container'>
-                    <div className='speech-bubble'>
-                        <p>{props.player.speechBubble}</p>
-                    </div>
-                </div>
-            </div>
+            <SpeechBubble isPlayerSpeechBubble={true} bubbleText={props.player.speechBubble}/>
         </div>
     )
 

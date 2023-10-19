@@ -12,11 +12,71 @@ function App() {
 
   const [enemy, setEnemy] = React.useState(enemyStructure)
 
-  const [playerTurn, setPlayerTurn] = React.useState(true)
+  // changes when currentTurn changes
+  React.useEffect(() => {
+
+    if (player.isCurrentTurn) {
+      console.log("players turn")
+
+      // show speechbubble feedback
+      setPlayer((prevPlayer) => {
+        const updatedPlayer = {
+          ...prevPlayer,
+          speechBubble: "It's my turn now!"
+        }
+        return updatedPlayer
+      })
+
+      // show speechbubble feedback
+      setEnemy((prevEnemy) => {
+        const updatedEnemy = {
+          ...prevEnemy,
+          speechBubble: ""
+        }
+        return updatedEnemy
+      })
+
+      // activate + show move selection
+    }
+    else {
+      console.log("enemys turn")
+
+      // show speechbubble feedback
+      setPlayer((prevPlayer) => {
+        const updatedPlayer = {
+          ...prevPlayer,
+          speechBubble: ""
+        }
+        return updatedPlayer
+      })
+
+      // show speechbubble feedback
+      setEnemy((prevEnemy) => {
+        const updatedEnemy = {
+          ...prevEnemy,
+          speechBubble: "It's my turn now!"
+        }
+        return updatedEnemy
+      })
+
+      completeEnemyMove()
+
+    }
+
+  }, [player.isCurrentTurn])
+
+  function completeEnemyMove() {
+    
+  }
 
   function moveSelected(id) {
+
+    if (!player.isCurrentTurn) {
+      return
+    }
+
     console.log(`move selected: ${id}`)
-    
+  
     for (let i = 0; i < player.moves.length; i++) {
       const currentMove = player.moves[i]
       if(currentMove.id === id) {
@@ -24,13 +84,17 @@ function App() {
         activateMove(currentMove)
       }
     }
+
+    // enemy turn
+    setPlayer(player => ({...player, isCurrentTurn: false}))
+
   }
 
   function activateMove(move) {
     const damage = calculateDamage(move.damageMin, move.damageMax)
     console.log(damage)
     // picks the victim depending on whose turn it is
-    const moveVictimSetFunction = playerTurn ? setEnemy : setPlayer
+    const moveVictimSetFunction = player.isCurrentTurn ? setEnemy : setPlayer
 
     // Updating the state
     moveVictimSetFunction((prevCharacter) => {
@@ -59,7 +123,8 @@ function App() {
         />
         <MoveSelection 
           moves={player.moves}
-          moveSelected={moveSelected}     
+          moveSelected={moveSelected}
+          isPlayerTurn={player.isCurrentTurn}     
         />
       </main>
       
