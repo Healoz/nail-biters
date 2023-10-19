@@ -228,6 +228,7 @@ main {
 
 .bubble-hidden {
   opacity: 0;
+  transform: translateX(-50%);
 }
 
 /* Minor fixes */

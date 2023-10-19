@@ -19,22 +19,9 @@ function App() {
       console.log("players turn")
 
       // show speechbubble feedback
-      setPlayer((prevPlayer) => {
-        const updatedPlayer = {
-          ...prevPlayer,
-          speechBubble: "It's my turn now!"
-        }
-        return updatedPlayer
-      })
+      setPlayer(player => ({...player, speechBubble: "It's my turn now!"}))
 
-      // show speechbubble feedback
-      setEnemy((prevEnemy) => {
-        const updatedEnemy = {
-          ...prevEnemy,
-          speechBubble: ""
-        }
-        return updatedEnemy
-      })
+      setEnemy(enemy => ({...enemy, speechBubble: ""}))
 
       // activate + show move selection
     }
@@ -42,22 +29,9 @@ function App() {
       console.log("enemys turn")
 
       // show speechbubble feedback
-      setPlayer((prevPlayer) => {
-        const updatedPlayer = {
-          ...prevPlayer,
-          speechBubble: ""
-        }
-        return updatedPlayer
-      })
+      setPlayer(player => ({...player, speechBubble: ""}))
 
-      // show speechbubble feedback
-      setEnemy((prevEnemy) => {
-        const updatedEnemy = {
-          ...prevEnemy,
-          speechBubble: "It's my turn now!"
-        }
-        return updatedEnemy
-      })
+      setEnemy(enemy => ({...enemy, speechBubble: "It's my turn now!"}))
 
       completeEnemyMove()
 
@@ -66,7 +40,25 @@ function App() {
   }, [player.isCurrentTurn])
 
   function completeEnemyMove() {
+    // select random move from enemy moves
+    const enemyMoves = enemy.moves
+    const randomIndex = Math.floor(Math.random() * enemyMoves.length);
+    const randomMove = enemyMoves[randomIndex]
     
+    // show effect of move for a couple seconds before changing to player turn
+    setTimeout(() => {
+      // activate the move
+      activateMove(randomMove)
+    }, 1000)
+
+    // set a timer for 3 seconds to show effect of move
+    setTimeout(() => {
+
+      // players turn now
+      setPlayer(player => ({...player, isCurrentTurn: true}))
+
+    }, 2000) // wait 3 seconds before making it players turn
+
   }
 
   function moveSelected(id) {
@@ -85,9 +77,12 @@ function App() {
       }
     }
 
-    // enemy turn
-    setPlayer(player => ({...player, isCurrentTurn: false}))
-
+    // wait a couple seconds before its the enemys turn
+    setTimeout(() => {
+      // enemy turn
+      setPlayer(player => ({...player, isCurrentTurn: false}))
+    }, 1000)
+    
   }
 
   function activateMove(move) {
