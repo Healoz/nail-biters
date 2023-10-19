@@ -11,25 +11,29 @@ export const playerStructure = {
         name: "Move 1",
         id: 1,
         description: "This is the first move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 2",
         id: 2,
         description: "This is the second move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 3",
         id: 3,
         description: "This is the third move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 4",
         id: 4,
         description: "This is the fourth move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       }
     ]
   };
@@ -46,25 +50,29 @@ export const playerStructure = {
         name: "Move 1",
         id: 1,
         description: "This is the first move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 2",
         id: 2,
         description: "This is the second move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 3",
         id: 3,
         description: "This is the third move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       },
       {
         name: "Move 4",
         id: 4,
         description: "This is the fourth move.",
-        damageRange: [10, 20]
+        damageMin: 10,
+        damageMax: 20
       }
     ]
   };
