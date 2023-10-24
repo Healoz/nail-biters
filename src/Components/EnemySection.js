@@ -1,6 +1,7 @@
 import CharacterInfo from './CharacterInfo';
 import EnemySprite from '../Images/enemy-placeholder.png';
 import SpeechBubble from './SpeechBubble';
+import DamageFeedback from './DamageFeedback';
 
 export default function EnemySection(props) {
 

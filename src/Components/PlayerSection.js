@@ -1,6 +1,7 @@
 import PlayerSprite from '../Images/player-placeholder.png';
 import CharacterInfo from './CharacterInfo';
 import SpeechBubble from './SpeechBubble';
+import DamageFeedback from './DamageFeedback';
 
 export default function PlayerSection(props) {
 
