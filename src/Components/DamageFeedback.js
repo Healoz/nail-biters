@@ -6,18 +6,15 @@ export default function DamageFeedback(props) {
     // play animation of number appearing and disappearing in a random direction
     const [animationClass, setAnimationClass] = useState('')
 
-    console.log(props.character.damageDealt)
+    // console.log(props.character.damageDealt)
     // const classList = `damage-number ${props.character.damageDealt ? `damage-animation-${props.randomNumber}` : ''}`;
 
     useEffect(() => {
         if (props.character.damageDealt) {
             const randomNumber = Math.floor(Math.random() * 4) + 1;
             setAnimationClass(`damage-animation-${randomNumber}`)
-
-            console.log("play animation")
         }
         else {
-            console.log("animation ended")
             setAnimationClass('')
         }
     }, [props.character.damageDealt])

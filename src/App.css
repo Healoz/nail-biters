@@ -68,6 +68,14 @@ main {
   transition: transform 0.4s ease-out;
 }
 
+.move-name {
+  font-size: 1.1rem;
+}
+
+.move-desc {
+  margin-bottom: 0.3rem;
+}
+
 .move-grid-hidden {
   transform: translateY(100%) scale(0.3);
 }

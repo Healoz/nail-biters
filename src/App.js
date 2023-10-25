@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
 
     if (player.isCurrentTurn) {
-      console.log("players turn")
+      // console.log("players turn")
 
       // show speechbubble feedback
       setPlayer(player => ({...player, speechBubble: "It's my turn now!"}))
@@ -31,9 +31,9 @@ function App() {
     else {
 
       // doesn't complete turn if someone is dead
-      console.log(player.isDead, enemy.isDead)
+      // console.log(player.isDead, enemy.isDead)
       if (!player.isDead && !enemy.isDead) {
-        console.log("enemys turn")
+        // console.log("enemys turn")
 
         // show speechbubble feedback
         setPlayer(player => ({...player, speechBubble: ""}))
@@ -63,8 +63,11 @@ function App() {
   function completeEnemyMove() {
     // select random move from enemy moves
     const enemyMoves = enemy.moves
-    const randomIndex = Math.floor(Math.random() * enemyMoves.length);
-    const randomMove = enemyMoves[randomIndex]
+    // ensure enemy has enough mana to use the move
+    const validEnemyMoves = enemyMoves.filter((move) => move.manaCost <= enemy.currentMana)
+    console.log(validEnemyMoves)
+    const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
+    const randomMove = validEnemyMoves[randomIndex]
     
     // show effect of move for a couple seconds before changing to player turn
     setTimeout(() => {
@@ -104,11 +107,12 @@ function App() {
   function activateMove(move) {
     const damage = calculateDamage(move.damageMin, move.damageMax)
     
-    console.log(damage)
-    // picks the victim depending on whose turn it is
+    // console.log(damage)
+    // picks the victim / user depending on whose turn it is
     const moveVictimSetFunction = player.isCurrentTurn ? setEnemy : setPlayer
+    const moveUserSetFunction = player.isCurrentTurn ? setPlayer : setEnemy
 
-    // Updating the state
+    // Updating the state of victim (reducing health + playing animation)
     moveVictimSetFunction((prevCharacter) => {
       const updatedCharacter = {
         ...prevCharacter,
@@ -118,6 +122,19 @@ function App() {
 
       return updatedCharacter
     })
+
+    // reducing mana + showing speechBubble
+    moveUserSetFunction((prevCharacter) => {
+      const updatedCharacter = {
+        ...prevCharacter,
+        currentMana: Math.max(prevCharacter.currentMana - move.manaCost, 0)
+
+      }
+
+      return updatedCharacter
+    })
+
+
 
     // setting the current damage being dealt to display
     setCurrentDamageDealt(damage)
@@ -146,6 +163,7 @@ function App() {
       const updatedCharacter = {
         ...prevCharacter,
         currentHealth: prevCharacter.maxHealth,
+        currentMana: prevCharacter.maxMana,
         isDead: false
       }
 
@@ -171,7 +189,8 @@ function App() {
         <MoveSelection 
           moves={player.moves}
           moveSelected={moveSelected}
-          isPlayerTurn={player.isCurrentTurn}    
+          isPlayerTurn={player.isCurrentTurn}
+          playerCurrentMana={player.currentMana}    
         />
       </main>
       

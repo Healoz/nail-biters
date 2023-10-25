@@ -11,32 +11,36 @@ export const playerStructure = {
     isDead: false,
     moves: [
       {
-        name: "Move 1",
+        name: "Basic Attack",
         id: 1,
         description: "This is the first move.",
-        damageMin: 10,
-        damageMax: 20
+        damageMin: 3,
+        damageMax: 10,
+        manaCost: 0
       },
       {
         name: "Move 2",
         id: 2,
         description: "This is the second move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 30
       },
       {
         name: "Move 3",
         id: 3,
         description: "This is the third move.",
         damageMin: 50,
-        damageMax: 70
+        damageMax: 70,
+        manaCost: 70
       },
       {
         name: "Move 4",
         id: 4,
         description: "This is the fourth move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 30
       }
     ]
   };
@@ -52,32 +56,36 @@ export const playerStructure = {
     isDead: false,
     moves: [
       {
-        name: "Move 1",
+        name: "Basic attack",
         id: 1,
         description: "This is the first move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 0
       },
       {
         name: "Move 2",
         id: 2,
         description: "This is the second move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 70
       },
       {
         name: "Move 3",
         id: 3,
         description: "This is the third move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 70
       },
       {
         name: "Move 4",
         id: 4,
         description: "This is the fourth move.",
         damageMin: 10,
-        damageMax: 20
+        damageMax: 20,
+        manaCost: 70
       }
     ]
   };

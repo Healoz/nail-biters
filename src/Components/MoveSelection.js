@@ -6,8 +6,9 @@ export default function MoveSelection(props) {
     const moveElements = props.moves.map((move) => ( 
         <Move 
             key={move.id} 
-            moveName={move.name}
+            move={move}
             moveSelected={props.moveSelected}
+            playerCurrentMana={props.playerCurrentMana} 
             id={move.id} 
         />
     ))
