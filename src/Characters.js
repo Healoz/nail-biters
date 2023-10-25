@@ -7,6 +7,7 @@ export const playerStructure = {
     maxMana: 100,
     currentMana: 100,
     speechBubble: "Player speech bubble text here.",
+    damageDealt: false,
     isDead: false,
     moves: [
       {
@@ -47,6 +48,7 @@ export const playerStructure = {
     maxMana: 100,
     currentMana: 100,
     speechBubble: "Enemy speech bubble text here.",
+    damageDealt: false,
     isDead: false,
     moves: [
       {

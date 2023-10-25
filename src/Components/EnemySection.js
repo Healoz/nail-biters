@@ -11,6 +11,11 @@ export default function EnemySection(props) {
             <div className='enemy'>
                 <CharacterInfo character={props.enemy}/>
                 <div className='enemy-sprite'>
+                    <DamageFeedback 
+                        currentDamageDealt={props.currentDamageDealt} 
+                        character={props.enemy}
+                        playDamageAnimation={props.playDamageAnimation}
+                    />
                     <img src={EnemySprite}></img>
                 </div>
             </div>

@@ -14,10 +14,10 @@ export default function FightOverMenu(props) {
                 <p>Fights won: 1</p>
                 <p>Best: 00</p>
                 <p>Damage dealt: 0</p>
-                <p>Best: 00</p>
+                <p>Best: 00</p >
               </div>
               <div className='menu-buttons'>
-                <button onClick={props.nextBattle}>Next battle</button>
+                <button onClick={props.nextBattle}>{props.battleWon ? 'Next Battle' : 'Play Again'}</button>
                 <button>Quit</button>
               </div>
             </div>

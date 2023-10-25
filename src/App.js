@@ -13,6 +13,9 @@ function App() {
 
   const [enemy, setEnemy] = useState(enemyStructure)
 
+  const [currentDamageDealt, setCurrentDamageDealt] = useState(0)
+  const [playDamageAnimation, setPlayDamageAnimation] = useState(false)
+
   // changes when currentTurn changes
   useEffect(() => {
 
@@ -100,6 +103,7 @@ function App() {
 
   function activateMove(move) {
     const damage = calculateDamage(move.damageMin, move.damageMax)
+    
     console.log(damage)
     // picks the victim depending on whose turn it is
     const moveVictimSetFunction = player.isCurrentTurn ? setEnemy : setPlayer
@@ -108,11 +112,20 @@ function App() {
     moveVictimSetFunction((prevCharacter) => {
       const updatedCharacter = {
         ...prevCharacter,
-        currentHealth: Math.max(prevCharacter.currentHealth - damage, 0) //ensures it doesnt go beneath 0
+        currentHealth: Math.max(prevCharacter.currentHealth - damage, 0), //ensures it doesnt go beneath 0
+        damageDealt: true
       }
 
       return updatedCharacter
     })
+
+    // setting the current damage being dealt to display
+    setCurrentDamageDealt(damage)
+
+    // wait for duration of animation seconds, then change damageDealt to false again
+    setTimeout(() => {
+      moveVictimSetFunction(prevCharacter => ({...prevCharacter, damageDealt: false}))
+    }, 2500)
 
   }
   
@@ -152,11 +165,13 @@ function App() {
         <GameScene 
           player={player}
           enemy={enemy}
+          currentDamageDealt={currentDamageDealt}
+          playDamageAnimation={playDamageAnimation}
         />
         <MoveSelection 
           moves={player.moves}
           moveSelected={moveSelected}
-          isPlayerTurn={player.isCurrentTurn}     
+          isPlayerTurn={player.isCurrentTurn}    
         />
       </main>
       
