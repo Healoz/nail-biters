@@ -6,6 +6,7 @@ import GameScene from './Components/GameScene';
 import { playerStructure, enemyStructure } from './Characters';
 import FightOverMenu from './Components/FightOverMenu';
 import React, { useState, useEffect } from 'react';
+import { MoveTypes } from './MoveTypes';
 
 function App() {
 
@@ -61,18 +62,36 @@ function App() {
   },[player.currentHealth, enemy.currentHealth])
 
   function completeEnemyMove() {
+
+    let moveSelected
     // select random move from enemy moves
     const enemyMoves = enemy.moves
-    // ensure enemy has enough mana to use the move
-    const validEnemyMoves = enemyMoves.filter((move) => move.manaCost <= enemy.currentMana)
-    console.log(validEnemyMoves)
-    const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
-    const randomMove = validEnemyMoves[randomIndex]
-    
+    let validEnemyMoves
+
+    const healMove = enemyMoves.find(move => move.type === MoveTypes.HEALING)
+    const manaRestoreMove = enemyMoves.find(move => move.type === MoveTypes.MANA_RESTORATION)
+
+    // checks if enemy health / mana is below 25%
+    if (checkIfStatBelowPercentage(enemy, MoveTypes.HEALING, 25) && healMove && healMove.quantity > 0) {
+      console.log("health less than 25% and has enough potions")
+      moveSelected = healMove
+    }
+    else if (checkIfStatBelowPercentage(enemy, MoveTypes.MANA_RESTORATION, 25) && manaRestoreMove && manaRestoreMove.quantity > 0) {
+      console.log("mana less than 25% and has enough potions")
+      moveSelected = manaRestoreMove
+    }
+    else {
+      // ensure enemy has enough mana to use the move
+      validEnemyMoves = enemyMoves.filter((move) => move.manaCost <= enemy.currentMana)
+      console.log(validEnemyMoves)
+      const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
+      moveSelected = validEnemyMoves[randomIndex]
+    }
+
     // show effect of move for a couple seconds before changing to player turn
     setTimeout(() => {
       // activate the move
-      activateMove(randomMove)
+      activateMove(moveSelected)
     }, 1000)
 
     // set a timer for 3 seconds to show effect of move
@@ -83,6 +102,25 @@ function App() {
 
     }, 2000) // wait 3 seconds before making it players turn
 
+  }
+
+  function checkIfStatBelowPercentage(character, moveType, percentage) {
+
+    let currentPercentage
+
+    if (moveType === MoveTypes.HEALING) {
+      currentPercentage = (character.currentHealth / character.maxHealth) * 100
+    }
+    else if (moveType === MoveTypes.MANA_RESTORATION) {
+      currentPercentage = (character.currentMana / character.maxMana) * 100
+    }
+    else {
+      console.log("invalid move type")
+      return false
+    }
+
+    return currentPercentage < percentage
+    
   }
 
   function moveSelected(id) {
