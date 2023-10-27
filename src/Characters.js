@@ -1,3 +1,6 @@
+// object for selecting what kind of move it is
+import { MoveTypes } from "./MoveTypes";
+
 // characters.js
 export const playerStructure = {
     name: "Player name",
@@ -16,7 +19,8 @@ export const playerStructure = {
         description: "This is the first move.",
         damageMin: 3,
         damageMax: 10,
-        manaCost: 0
+        manaCost: 0,
+        type: MoveTypes.DAMAGE
       },
       {
         name: "Move 2",
@@ -24,23 +28,42 @@ export const playerStructure = {
         description: "This is the second move.",
         damageMin: 10,
         damageMax: 20,
-        manaCost: 30
+        manaCost: 30,
+        type: MoveTypes.DAMAGE
+      },
+      {
+        name: "Health potion",
+        id: 3,
+        description: "Consume a potion to restore health",
+        restoreAmount: 30,
+        quantity: 3,
+        type: MoveTypes.HEALING
       },
       {
         name: "Move 3",
-        id: 3,
+        id: 4,
         description: "This is the third move.",
         damageMin: 50,
         damageMax: 70,
-        manaCost: 70
+        manaCost: 70,
+        type: MoveTypes.DAMAGE
       },
       {
         name: "Move 4",
-        id: 4,
+        id: 5,
         description: "This is the fourth move.",
         damageMin: 10,
         damageMax: 20,
-        manaCost: 30
+        manaCost: 30,
+        type: MoveTypes.DAMAGE
+      },
+      {
+        name: "Mana potion",
+        id: 6,
+        description: "Consume a mana potion",
+        restoreAmount: 30,
+        quantity: 5,
+        type: MoveTypes.MANA_RESTORATION
       }
     ]
   };
@@ -56,12 +79,13 @@ export const playerStructure = {
     isDead: false,
     moves: [
       {
-        name: "Basic attack",
+        name: "Basic Attack",
         id: 1,
         description: "This is the first move.",
-        damageMin: 10,
-        damageMax: 20,
-        manaCost: 0
+        damageMin: 3,
+        damageMax: 10,
+        manaCost: 0,
+        type: MoveTypes.DAMAGE
       },
       {
         name: "Move 2",
@@ -69,23 +93,42 @@ export const playerStructure = {
         description: "This is the second move.",
         damageMin: 10,
         damageMax: 20,
-        manaCost: 70
+        manaCost: 30,
+        type: MoveTypes.DAMAGE
+      },
+      {
+        name: "Health potion",
+        id: 3,
+        description: "Consume a potion to restore health",
+        restoreAmount: 30,
+        quantity: 3,
+        type: MoveTypes.HEALING
       },
       {
         name: "Move 3",
-        id: 3,
+        id: 4,
         description: "This is the third move.",
-        damageMin: 10,
-        damageMax: 20,
-        manaCost: 70
+        damageMin: 50,
+        damageMax: 70,
+        manaCost: 70,
+        type: MoveTypes.DAMAGE
       },
       {
         name: "Move 4",
-        id: 4,
+        id: 5,
         description: "This is the fourth move.",
         damageMin: 10,
         damageMax: 20,
-        manaCost: 70
+        manaCost: 30,
+        type: MoveTypes.DAMAGE
+      },
+      {
+        name: "Mana potion",
+        id: 6,
+        description: "Consume a mana potion",
+        restoreAmount: 30,
+        quantity: 3,
+        type: MoveTypes.MANA_RESTORATION
       }
     ]
   };
