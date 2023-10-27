@@ -62,66 +62,59 @@ function App() {
   },[player.currentHealth, enemy.currentHealth])
 
   function completeEnemyMove() {
+    const moveSelected = selectEnemyMove();
+    showMoveEffect(moveSelected);
+    setTimeout(() => switchToPlayerTurn(), 2000);
+}
 
-    let moveSelected
-    // select random move from enemy moves
-    const enemyMoves = enemy.moves
-    let validEnemyMoves
+  function selectEnemyMove() {
+      const enemyMoves = enemy.moves;
+      const healMove = enemyMoves.find(move => move.type === MoveTypes.HEALING);
+      const manaRestoreMove = enemyMoves.find(move => move.type === MoveTypes.MANA_RESTORATION);
 
-    const healMove = enemyMoves.find(move => move.type === MoveTypes.HEALING)
-    const manaRestoreMove = enemyMoves.find(move => move.type === MoveTypes.MANA_RESTORATION)
-
-    // checks if enemy health / mana is below 25%
-    if (checkIfStatBelowPercentage(enemy, MoveTypes.HEALING, 25) && healMove && healMove.quantity > 0) {
-      console.log("health less than 25% and has enough potions")
-      moveSelected = healMove
-    }
-    else if (checkIfStatBelowPercentage(enemy, MoveTypes.MANA_RESTORATION, 25) && manaRestoreMove && manaRestoreMove.quantity > 0) {
-      console.log("mana less than 25% and has enough potions")
-      moveSelected = manaRestoreMove
-    }
-    else {
-      // ensure enemy has enough mana to use the move
-      validEnemyMoves = enemyMoves.filter((move) => move.manaCost <= enemy.currentMana)
-      console.log(validEnemyMoves)
-      const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
-      moveSelected = validEnemyMoves[randomIndex]
-    }
-
-    // show effect of move for a couple seconds before changing to player turn
-    setTimeout(() => {
-      // activate the move
-      activateMove(moveSelected)
-    }, 1000)
-
-    // set a timer for 3 seconds to show effect of move
-    setTimeout(() => {
-
-      // players turn now
-      setPlayer(player => ({...player, isCurrentTurn: true}))
-
-    }, 2000) // wait 3 seconds before making it players turn
-
+      if (checkIfStatBelowPercentage(enemy, MoveTypes.HEALING, 25) && healMove && healMove.quantity > 0) {
+          console.log("Health is less than 25% and the enemy has enough health potions.");
+          return healMove;
+      } else if (checkIfStatBelowPercentage(enemy, MoveTypes.MANA_RESTORATION, 25) && manaRestoreMove && manaRestoreMove.quantity > 0) {
+          console.log("Mana is less than 25% and the enemy has enough mana potions.");
+          return manaRestoreMove;
+      } else {
+          const validEnemyMoves = enemyMoves.filter(move => move.manaCost <= enemy.currentMana);
+          console.log(validEnemyMoves);
+          const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
+          return validEnemyMoves[randomIndex];
+      }
   }
 
-  function checkIfStatBelowPercentage(character, moveType, percentage) {
-
-    let currentPercentage
-
-    if (moveType === MoveTypes.HEALING) {
-      currentPercentage = (character.currentHealth / character.maxHealth) * 100
-    }
-    else if (moveType === MoveTypes.MANA_RESTORATION) {
-      currentPercentage = (character.currentMana / character.maxMana) * 100
-    }
-    else {
-      console.log("invalid move type")
-      return false
-    }
-
-    return currentPercentage < percentage
-    
+  function showMoveEffect(move) {
+      setTimeout(() => {
+          activateMove(move);
+      }, 1000);
   }
+
+  function switchToPlayerTurn() {
+      setPlayer(player => ({ ...player, isCurrentTurn: true }));
+  }
+
+
+function checkIfStatBelowPercentage(character, moveType, percentage) {
+
+  let currentPercentage
+
+  if (moveType === MoveTypes.HEALING) {
+    currentPercentage = (character.currentHealth / character.maxHealth) * 100
+  }
+  else if (moveType === MoveTypes.MANA_RESTORATION) {
+    currentPercentage = (character.currentMana / character.maxMana) * 100
+  }
+  else {
+    console.log("invalid move type")
+    return false
+  }
+
+  return currentPercentage < percentage
+  
+}
 
   function moveSelected(id) {
 
@@ -143,6 +136,24 @@ function App() {
   }
 
   function activateMove(move) {
+
+    if (move.type === MoveTypes.DAMAGE) {
+      completeDamageMove(move)
+    }
+    else if (move.type === MoveTypes.HEALING) {
+      console.log("complete heal effect")
+    }
+    else if (move.type === MoveTypes.MANA_RESTORATION) {
+      console.log("complete mana restore effect")
+    }
+    else {
+      console.log("invalid move type")
+    }
+
+  }
+
+  function completeDamageMove(move) {
+
     const damage = calculateDamage(move.damageMin, move.damageMax)
     
     // console.log(damage)
@@ -171,8 +182,6 @@ function App() {
 
       return updatedCharacter
     })
-
-
 
     // setting the current damage being dealt to display
     setCurrentDamageDealt(damage)
