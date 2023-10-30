@@ -37,6 +37,7 @@ export const playerStructure = {
         description: "Consume a potion to restore health",
         restoreAmount: 30,
         quantity: 3,
+        maxQuantity: 3,
         type: MoveTypes.HEALING
       },
       {
@@ -63,6 +64,7 @@ export const playerStructure = {
         description: "Consume a mana potion",
         restoreAmount: 30,
         quantity: 5,
+        maxQuantity: 5,
         type: MoveTypes.MANA_RESTORATION
       }
     ]
@@ -100,8 +102,9 @@ export const playerStructure = {
         name: "Health potion",
         id: 3,
         description: "Consume a potion to restore health",
-        restoreAmount: 30,
+        restoreAmount: 50,
         quantity: 3,
+        maxQuantity: 3,
         type: MoveTypes.HEALING
       },
       {
@@ -128,6 +131,7 @@ export const playerStructure = {
         description: "Consume a mana potion",
         restoreAmount: 30,
         quantity: 3,
+        maxQuantity: 3,
         type: MoveTypes.MANA_RESTORATION
       }
     ]

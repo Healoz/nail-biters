@@ -14,8 +14,8 @@ function App() {
 
   const [enemy, setEnemy] = useState(enemyStructure)
 
-  const [currentDamageDealt, setCurrentDamageDealt] = useState(0)
-  const [playDamageAnimation, setPlayDamageAnimation] = useState(false)
+  const [currentPointIndicator, setCurrentPointIndicator] = useState(0)
+  const [playIndicatorAnimation, setIndicatorAnimation] = useState(false)
 
   // changes when currentTurn changes
   useEffect(() => {
@@ -79,10 +79,17 @@ function App() {
           console.log("Mana is less than 25% and the enemy has enough mana potions.");
           return manaRestoreMove;
       } else {
-          const validEnemyMoves = enemyMoves.filter(move => move.manaCost <= enemy.currentMana);
+          // prioritises moves with mana cost as they are more powerful
+          let validEnemyMoves = enemyMoves.filter(move => move.manaCost > 0 && move.manaCost <= enemy.currentMana);
           console.log(validEnemyMoves);
+          // if there are no possible mana moves the player can complete, then just use the nonMana moves
+          if (validEnemyMoves.length === 0) {
+            console.log("not enough mana for mana moves. using basic move")
+            validEnemyMoves = enemyMoves.filter(move => move.manaCost <= enemy.currentMana)
+          }
           const randomIndex = Math.floor(Math.random() * validEnemyMoves.length);
           return validEnemyMoves[randomIndex];
+          
       }
   }
 
@@ -142,13 +149,75 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
     }
     else if (move.type === MoveTypes.HEALING) {
       console.log("complete heal effect")
+      completeRestoreMove(move)
     }
     else if (move.type === MoveTypes.MANA_RESTORATION) {
       console.log("complete mana restore effect")
+      completeRestoreMove(move)
     }
     else {
       console.log("invalid move type")
     }
+
+  }
+
+  function completeRestoreMove(restoreMove) {
+
+    console.log("restore move name: " + restoreMove.name)
+    
+    const restoreSubjectSetFunction = player.isCurrentTurn ? setPlayer : setEnemy
+
+    // healing current characters turn
+    restoreSubjectSetFunction((prevCharacter) => {
+
+      const updatedMoves = prevCharacter.moves.map((prevMove) => {
+        if (prevMove.id === restoreMove.id) {
+          // reduce quantity of healing/mana potion move by 1
+          const updatedMove = {
+            ...prevMove,
+            quantity: prevMove.quantity - 1
+          }
+          return updatedMove
+        }
+        return prevMove
+      })
+
+      
+
+      let updatedMana = prevCharacter.currentMana
+      let updatedHealth = prevCharacter.currentHealth
+
+      // let updatedMana
+      // let updatedHealth
+
+      console.log(restoreMove.type)
+
+      if (restoreMove.type === MoveTypes.HEALING) {
+        updatedHealth = Math.min(
+          prevCharacter.currentHealth + restoreMove.restoreAmount,
+          prevCharacter.maxHealth
+        )
+      }
+
+      if (restoreMove.type === MoveTypes.MANA_RESTORATION) {
+        updatedMana = Math.min(
+          prevCharacter.currentMana + restoreMove.restoreAmount,
+          prevCharacter.maxMana
+        )
+      }
+
+      console.log("updated health: " + updatedHealth)
+      console.log("updated mana: " + updatedMana)
+
+      const updatedCharacter = {
+        ...prevCharacter,
+        moves: updatedMoves,
+        currentHealth: updatedHealth,
+        currentMana: updatedMana
+      }
+
+      return updatedCharacter
+    })
 
   }
 
@@ -184,7 +253,7 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
     })
 
     // setting the current damage being dealt to display
-    setCurrentDamageDealt(damage)
+    setCurrentPointIndicator(damage)
 
     // wait for duration of animation seconds, then change damageDealt to false again
     setTimeout(() => {
@@ -207,10 +276,24 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
   function resetStats(setCharacterFunction) {
 
     setCharacterFunction((prevCharacter) => {
+
+      const updatedMoves = prevCharacter.moves.map((prevMove) => {
+        if (prevMove.type === MoveTypes.HEALING || prevMove.type === MoveTypes.MANA_RESTORATION) {
+          // set to max quantity
+          const updatedMove = {
+            ...prevMove,
+            quantity: prevMove.maxQuantity
+          }
+          return updatedMove
+        }
+        return prevMove
+      })
+
       const updatedCharacter = {
         ...prevCharacter,
         currentHealth: prevCharacter.maxHealth,
         currentMana: prevCharacter.maxMana,
+        moves: updatedMoves,
         isDead: false
       }
 
@@ -230,8 +313,8 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
         <GameScene 
           player={player}
           enemy={enemy}
-          currentDamageDealt={currentDamageDealt}
-          playDamageAnimation={playDamageAnimation}
+          currentDamageDealt={currentPointIndicator}
+          playDamageAnimation={playIndicatorAnimation}
         />
         <MoveSelection 
           moves={player.moves}
