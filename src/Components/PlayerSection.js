@@ -1,7 +1,7 @@
 import PlayerSprite from '../Images/player-placeholder.png';
 import CharacterInfo from './CharacterInfo';
 import SpeechBubble from './SpeechBubble';
-import DamageFeedback from './DamageFeedback';
+import NumberFeedback from './NumberFeedback';
 
 export default function PlayerSection(props) {
 
@@ -12,11 +12,11 @@ export default function PlayerSection(props) {
             <div className='player'>
                 <CharacterInfo character={props.player}/>
                 <div className='player-sprite'>
-                    <DamageFeedback 
-                        currentDamageDealt={props.currentDamageDealt} 
+                    <NumberFeedback 
+                        currentPointIndicator={props.currentPointIndicator} 
                         character={props.player}
                         randomNumber={randomNumber}
-                        playDamageAnimation={props.playDamageAnimation}
+                        playNumberAnimation={props.playNumberAnimation}
                     />
                     <img src={PlayerSprite}></img>
                 </div>

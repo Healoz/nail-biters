@@ -9,13 +9,13 @@ export default function GameScene(props) {
             <EnemySection 
                 enemy={props.enemy} 
                 player={props.player} 
-                currentDamageDealt={props.currentDamageDealt}
-                playDamageAnimation={props.playDamageAnimation}
+                currentPointIndicator={props.currentPointIndicator}
+                playNumberAnimation={props.playNumberAnimation}
             />
             <PlayerSection 
                 player={props.player} 
-                currentDamageDealt={props.currentDamageDealt}
-                playDamageAnimation={props.playDamageAnimation}
+                currentPointIndicator={props.currentPointIndicator}
+                playNumberAnimation={props.playNumberAnimation}
             />
         </section>
     )

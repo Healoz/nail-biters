@@ -72,10 +72,10 @@ function App() {
       const healMove = enemyMoves.find(move => move.type === MoveTypes.HEALING);
       const manaRestoreMove = enemyMoves.find(move => move.type === MoveTypes.MANA_RESTORATION);
 
-      if (checkIfStatBelowPercentage(enemy, MoveTypes.HEALING, 25) && healMove && healMove.quantity > 0) {
+      if (checkIfStatBelowPercentage(enemy, MoveTypes.HEALING, enemy.percentForTakingPotion) && healMove && healMove.quantity > 0) {
           console.log("Health is less than 25% and the enemy has enough health potions.");
           return healMove;
-      } else if (checkIfStatBelowPercentage(enemy, MoveTypes.MANA_RESTORATION, 25) && manaRestoreMove && manaRestoreMove.quantity > 0) {
+      } else if (checkIfStatBelowPercentage(enemy, MoveTypes.MANA_RESTORATION, enemy.percentForTakingPotion) && manaRestoreMove && manaRestoreMove.quantity > 0) {
           console.log("Mana is less than 25% and the enemy has enough mana potions.");
           return manaRestoreMove;
       } else {
@@ -235,7 +235,7 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
       const updatedCharacter = {
         ...prevCharacter,
         currentHealth: Math.max(prevCharacter.currentHealth - damage, 0), //ensures it doesnt go beneath 0
-        damageDealt: true
+        numberIndicatorShown: true
       }
 
       return updatedCharacter
@@ -255,9 +255,9 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
     // setting the current damage being dealt to display
     setCurrentPointIndicator(damage)
 
-    // wait for duration of animation seconds, then change damageDealt to false again
+    // wait for duration of animation seconds, then change numberIndicatorShown to false again
     setTimeout(() => {
-      moveVictimSetFunction(prevCharacter => ({...prevCharacter, damageDealt: false}))
+      moveVictimSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: false}))
     }, 2500)
 
   }
@@ -313,8 +313,8 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
         <GameScene 
           player={player}
           enemy={enemy}
-          currentDamageDealt={currentPointIndicator}
-          playDamageAnimation={playIndicatorAnimation}
+          currentPointIndicator={currentPointIndicator}
+          playNumberAnimation={playIndicatorAnimation}
         />
         <MoveSelection 
           moves={player.moves}

@@ -1,7 +1,7 @@
 import CharacterInfo from './CharacterInfo';
 import EnemySprite from '../Images/enemy-placeholder.png';
 import SpeechBubble from './SpeechBubble';
-import DamageFeedback from './DamageFeedback';
+import NumberFeedback from './NumberFeedback';
 
 export default function EnemySection(props) {
 
@@ -11,10 +11,10 @@ export default function EnemySection(props) {
             <div className='enemy'>
                 <CharacterInfo character={props.enemy}/>
                 <div className='enemy-sprite'>
-                    <DamageFeedback 
-                        currentDamageDealt={props.currentDamageDealt} 
+                    <NumberFeedback 
+                        currentPointIndicator={props.currentPointIndicator} 
                         character={props.enemy}
-                        playDamageAnimation={props.playDamageAnimation}
+                        playNumberAnimation={props.playNumberAnimation}
                     />
                     <img src={EnemySprite}></img>
                 </div>

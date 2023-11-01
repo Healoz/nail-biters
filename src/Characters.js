@@ -10,7 +10,7 @@ export const playerStructure = {
     maxMana: 100,
     currentMana: 100,
     speechBubble: "Player speech bubble text here.",
-    damageDealt: false,
+    numberIndicatorShown: false,
     isDead: false,
     moves: [
       {
@@ -77,8 +77,9 @@ export const playerStructure = {
     maxMana: 100,
     currentMana: 100,
     speechBubble: "Enemy speech bubble text here.",
-    damageDealt: false,
+    numberIndicatorShown: false,
     isDead: false,
+    percentForTakingPotion: 10,
     moves: [
       {
         name: "Basic Attack",
@@ -102,9 +103,9 @@ export const playerStructure = {
         name: "Health potion",
         id: 3,
         description: "Consume a potion to restore health",
-        restoreAmount: 50,
-        quantity: 3,
-        maxQuantity: 3,
+        restoreAmount: 80,
+        quantity: 1,
+        maxQuantity: 1,
         type: MoveTypes.HEALING
       },
       {
@@ -130,8 +131,8 @@ export const playerStructure = {
         id: 6,
         description: "Consume a mana potion",
         restoreAmount: 30,
-        quantity: 3,
-        maxQuantity: 3,
+        quantity: 1,
+        maxQuantity: 1,
         type: MoveTypes.MANA_RESTORATION
       }
     ]
