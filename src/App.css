@@ -310,15 +310,34 @@ main {
 .damage-number {
   font-size: 1.5rem;
   color: #fff; /* Text color */
+  animation-duration: 2.5s;
+  animation-timing-function: cubic-bezier(.17,.67,0,1.56);
+  opacity: 0;
+  margin-bottom: 3rem;
+}
+
+.damage-colour {
   text-shadow:
     -2px -2px 0 red,
     2px -2px 0 red,
     -2px 2px 0 red,
     2px 2px 0 red;
-  animation-duration: 2.5s;
-  animation-timing-function: cubic-bezier(.17,.67,0,1.56);
-  opacity: 0;
-  margin-bottom: 3rem;
+}
+
+.heal-colour {
+  text-shadow:
+    -2px -2px 0 green,
+    2px -2px 0 green,
+    -2px 2px 0 green,
+    2px 2px 0 green;
+}
+
+.mana-colour {
+  text-shadow:
+    -2px -2px 0 rgb(0, 208, 255),
+    2px -2px 0 rgb(0, 208, 255),
+    -2px 2px 0 rgb(0, 208, 255),
+    2px 2px 0 rgb(0, 208, 255);
 }
 
 .damage-animation-1 {

@@ -160,7 +160,7 @@ function App() {
 
   }
 
-  function completeRestoreMove(restoreMove) {
+  async function completeRestoreMove(restoreMove) {
 
     console.log("restore move name: " + restoreMove.name)
     
@@ -184,9 +184,6 @@ function App() {
       let updatedMana = prevCharacter.currentMana
       let updatedHealth = prevCharacter.currentHealth
 
-      // let updatedMana
-      // let updatedHealth
-
       console.log(restoreMove.type)
 
       if (restoreMove.type === MoveTypes.HEALING) {
@@ -206,28 +203,21 @@ function App() {
       console.log("updated health: " + updatedHealth)
       console.log("updated mana: " + updatedMana)
 
-      // setting the current restoreAmount being restored to display
-      setCurrentPointIndicator(restoreMove.restoreAmount)
-
       const updatedCharacter = {
         ...prevCharacter,
         moves: updatedMoves,
         currentHealth: updatedHealth,
         currentMana: updatedMana,
-        numberIndicatorShown: true // to show heal effect
       }
 
       return updatedCharacter
     })
 
-    // wait for duration of animation seconds, then change numberIndicatorShown to false again
-    setTimeout(() => {
-      restoreSubjectSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: false}))
-    }, 2500)
+    await playNumberAnimation(restoreSubjectSetFunction, MoveTypes.HEALING, restoreMove.restoreAmount)
 
   }
 
-  function completeDamageMove(move) {
+  async function completeDamageMove(move) {
 
     const damage = calculateDamage(move.damageMin, move.damageMax)
     
@@ -241,7 +231,6 @@ function App() {
       const updatedCharacter = {
         ...prevCharacter,
         currentHealth: Math.max(prevCharacter.currentHealth - damage, 0), //ensures it doesnt go beneath 0
-        numberIndicatorShown: true
       }
 
       return updatedCharacter
@@ -252,20 +241,30 @@ function App() {
       const updatedCharacter = {
         ...prevCharacter,
         currentMana: Math.max(prevCharacter.currentMana - move.manaCost, 0)
-
       }
-
       return updatedCharacter
     })
 
+    await playNumberAnimation(moveVictimSetFunction, MoveTypes.DAMAGE, damage)
+  }
+
+  function playNumberAnimation(characterSetFunction, moveType, number) {
+
+    characterSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: true, currentMoveType: moveType}))
+
     // setting the current damage being dealt to display
-    setCurrentPointIndicator(damage)
+    setCurrentPointIndicator(number)
 
-    // wait for duration of animation seconds, then change numberIndicatorShown to false again
-    setTimeout(() => {
-      moveVictimSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: false}))
-    }, 2500)
+    console.log("player current move type: " + player.currentMoveType)
+    console.log("enemy current move type: " + enemy.currentMoveType)
 
+    return new Promise((resolve) => {
+      // wait for duration of animation seconds, then change numberIndicatorShown to false again
+      setTimeout(() => {
+        characterSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: false}))
+        resolve()
+      }, 2500)
+    })
   }
   
   function calculateDamage(min, max) {
@@ -320,7 +319,6 @@ function App() {
           player={player}
           enemy={enemy}
           currentPointIndicator={currentPointIndicator}
-          playNumberAnimation={playIndicatorAnimation}
         />
         <MoveSelection 
           moves={player.moves}

@@ -11,6 +11,7 @@ export const playerStructure = {
     currentMana: 100,
     speechBubble: "Player speech bubble text here.",
     numberIndicatorShown: false,
+    currentMoveType: MoveTypes.DAMAGE,
     isDead: false,
     moves: [
       {
@@ -78,6 +79,7 @@ export const playerStructure = {
     currentMana: 100,
     speechBubble: "Enemy speech bubble text here.",
     numberIndicatorShown: false,
+    currentMoveType: MoveTypes.DAMAGE,
     isDead: false,
     percentForTakingPotion: 10,
     moves: [
