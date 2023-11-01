@@ -103,8 +103,7 @@ function App() {
       setPlayer(player => ({ ...player, isCurrentTurn: true }));
   }
 
-
-function checkIfStatBelowPercentage(character, moveType, percentage) {
+  function checkIfStatBelowPercentage(character, moveType, percentage) {
 
   let currentPercentage
 
@@ -121,7 +120,7 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
 
   return currentPercentage < percentage
   
-}
+  }
 
   function moveSelected(id) {
 
@@ -182,8 +181,6 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
         return prevMove
       })
 
-      
-
       let updatedMana = prevCharacter.currentMana
       let updatedHealth = prevCharacter.currentHealth
 
@@ -209,15 +206,24 @@ function checkIfStatBelowPercentage(character, moveType, percentage) {
       console.log("updated health: " + updatedHealth)
       console.log("updated mana: " + updatedMana)
 
+      // setting the current restoreAmount being restored to display
+      setCurrentPointIndicator(restoreMove.restoreAmount)
+
       const updatedCharacter = {
         ...prevCharacter,
         moves: updatedMoves,
         currentHealth: updatedHealth,
-        currentMana: updatedMana
+        currentMana: updatedMana,
+        numberIndicatorShown: true // to show heal effect
       }
 
       return updatedCharacter
     })
+
+    // wait for duration of animation seconds, then change numberIndicatorShown to false again
+    setTimeout(() => {
+      restoreSubjectSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: false}))
+    }, 2500)
 
   }
 
