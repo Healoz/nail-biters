@@ -6,8 +6,7 @@ export default function NumberFeedback(props) {
     // generate a random number between 1 and 4
     // play animation of number appearing and disappearing in a random direction
     const [animationClass, setAnimationClass] = useState('')
-
-    const classList = getClassListBasedOnMoveType(props.character.currentMoveType);
+    const [colourClass, setColourClass] = useState('')
 
     function getClassListBasedOnMoveType(moveType) {
         switch (moveType) {
@@ -31,10 +30,16 @@ export default function NumberFeedback(props) {
             setAnimationClass('')
         }
     }, [props.character.numberIndicatorShown])
+
+    useEffect(() => {
+
+        setColourClass(getClassListBasedOnMoveType(props.character.currentMoveType))
+
+    }, [props.character.currentMoveType])
     
     return (
         <div className="damage-feedback">
-            <h3 className={`damage-number ${animationClass} ${classList}`}>{props.currentPointIndicator}</h3>
+            <h3 className={`damage-number ${animationClass} ${colourClass}`}>{props.currentPointIndicator}</h3>
         </div>
     )
 }

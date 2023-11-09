@@ -17,6 +17,48 @@ function App() {
   const [currentPointIndicator, setCurrentPointIndicator] = useState(0)
   const [playIndicatorAnimation, setIndicatorAnimation] = useState(false)
 
+  const [moveNames, setMoveNames] = useState([])
+
+
+  // fetching random move names on startup
+  useEffect(() => {
+    console.log("runs when program starts")
+
+    const fetchRandomMoveName = async () => {
+      try {
+        const response = await fetch('https://api.api-ninjas.com/v1/randomword?type=verb', {
+          method: 'GET',
+          headers: {
+            'X-Api-Key': 'K0K87hrvQf7EKobEVazk3A==JvjlVIbaJiKLDFkb', // Replace 'YOUR_API_KEY' with your actual API key
+            'Content-Type': 'application/json',
+          }
+        })
+        if (response.ok) {
+          const data = await response.json()
+          const word = data.word
+          setMoveNames(prevMoveNames => [...prevMoveNames, word])
+        } else {
+          console.error('Error: ', response.statusText)
+        }
+      } catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    const fetchRandomMoveNamesWithDelay = async () => {
+      for (let i = 0; i < 4; i++) {
+        await fetchRandomMoveName()
+      }
+    }
+
+    fetchRandomMoveNamesWithDelay()
+    
+  }, [])
+
+  useEffect(() => {
+    console.log(moveNames)
+  }, [moveNames])
+
   // changes when currentTurn changes
   useEffect(() => {
 
