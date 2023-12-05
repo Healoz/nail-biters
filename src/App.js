@@ -5,8 +5,9 @@ import MoveSelection from './Components/MoveSelection';
 import GameScene from './Components/GameScene';
 import { playerStructure, enemyStructure } from './Characters';
 import FightOverMenu from './Components/FightOverMenu';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MoveTypes } from './MoveTypes';
+import aggressiveVerbsData from './aggressiveVerbsData';
 
 function App() {
 
@@ -14,50 +15,139 @@ function App() {
 
   const [enemy, setEnemy] = useState(enemyStructure)
 
+  const [aggressiveVerbs, setAggressiveVerbs] = useState(aggressiveVerbsData.aggressive_verbs)
+
   const [currentPointIndicator, setCurrentPointIndicator] = useState(0)
   const [playIndicatorAnimation, setIndicatorAnimation] = useState(false)
 
   const [moveNames, setMoveNames] = useState([])
+
+  const firstRender = useRef(true)
 
 
   // fetching random move names on startup
   useEffect(() => {
     console.log("runs when program starts")
 
-    const fetchRandomMoveName = async () => {
-      try {
-        const response = await fetch('https://api.api-ninjas.com/v1/randomword?type=verb', {
-          method: 'GET',
-          headers: {
-            'X-Api-Key': 'K0K87hrvQf7EKobEVazk3A==JvjlVIbaJiKLDFkb', // Replace 'YOUR_API_KEY' with your actual API key
-            'Content-Type': 'application/json',
-          }
-        })
-        if (response.ok) {
-          const data = await response.json()
-          const word = data.word
-          setMoveNames(prevMoveNames => [...prevMoveNames, word])
-        } else {
-          console.error('Error: ', response.statusText)
-        }
-      } catch (error) {
-        console.error('Error:', error)
-      }
-    }
-
-    const fetchRandomMoveNamesWithDelay = async () => {
-      for (let i = 0; i < 4; i++) {
-        await fetchRandomMoveName()
-      }
-    }
-
-    fetchRandomMoveNamesWithDelay()
-    
+    // only allows single words to be move names
+    filterSingleWordsFromVerbsData()
+     
   }, [])
 
   useEffect(() => {
-    console.log(moveNames)
-  }, [moveNames])
+
+    if (!firstRender.current) {
+      console.log("runs after filtering")
+      generateMoveNames()
+    }
+    else {
+      firstRender.current = false
+    }
+    
+  }, [aggressiveVerbs])
+
+  function filterSingleWordsFromVerbsData() {
+
+    setAggressiveVerbs((prevAggressiveVerbs) => {
+      const updatedAggressiveVerbs = prevAggressiveVerbs.filter(verb => !/\s/.test(verb))
+
+      return updatedAggressiveVerbs
+    })
+  }
+
+  function generateMoveNames() {
+    const moveNamesArray = aggressiveVerbs || []
+    const selectedMoves = []
+
+    // get 3 random move names
+    for (let i = 0; i < 3; i++) {
+      // get a random element from moveNamesArray to be the move name
+      const randomIndex = Math.floor(Math.random() * moveNamesArray.length)
+      const moveSelected = moveNamesArray[randomIndex]
+      // move element from array so it doesnt get picked twice
+      moveNamesArray.splice(randomIndex, 1)
+      selectedMoves.push(moveSelected)
+    }
+
+    // get 3 in total
+    // rename the player moves to these move names
+
+    setPlayer((prevPlayer) => {
+      const updatedMoves = prevPlayer.moves.map((prevMove, index) => {
+        console.log(`move index ${index}`);
+
+        if (prevMove.id === 1 || prevMove.type !== MoveTypes.DAMAGE) { // first move stays as default, and any healing moves stay the same
+          return prevMove
+        }
+
+        // if id is 2, index of selectedMoves is 0
+        // if id is 4, index of selectedMoves is 1
+        // if id is 5, index of selectedMoves is 2
+        const selectedMoveIndex = 
+          prevMove.id === 2 ? 0 : 
+          prevMove.id === 4 ? 1 : 
+          prevMove.id === 5 ? 2 : null
+
+        if (selectedMoveIndex === null) {
+          return prevMove
+        }
+
+        const moveName = selectedMoves[selectedMoveIndex]
+
+        const updatedMove = {
+            ...prevMove,
+            name: moveName,
+            description: "Attack your enemy"
+        }
+        return updatedMove
+
+      })
+
+        const updatedPlayer = {
+          ...prevPlayer,
+          moves: updatedMoves
+        }
+        return updatedPlayer
+    })
+  }
+
+  function fetchMoveDescription(word) {
+    const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+
+    return fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error found')
+        }
+        return response.json()
+      })
+      .then(data => {
+        // this is working
+        return getMoveDescFromData(data)
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error)
+        throw error
+      })
+
+  }
+
+  function getMoveDescFromData(data) {
+    const firstWordData = data[0]
+    console.log(firstWordData)
+    const meanings = firstWordData.meanings
+    let definition = "Attack your enemy"
+
+    meanings.forEach(meaning => {
+      if (meaning.partOfSpeech === "verb") {
+        console.log("meaning is a verb")
+        const definitionArray = meaning.definitions[0]
+        definition = definitionArray.definition
+      }
+    })
+
+    return definition
+  }
 
   // changes when currentTurn changes
   useEffect(() => {
