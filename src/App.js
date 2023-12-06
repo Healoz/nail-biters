@@ -20,14 +20,12 @@ function App() {
   const [currentPointIndicator, setCurrentPointIndicator] = useState(0)
   const [playIndicatorAnimation, setIndicatorAnimation] = useState(false)
 
-  const [moveNames, setMoveNames] = useState([])
-
   const firstRender = useRef(true)
+  const customMoveIds = [2, 4, 5]
 
 
   // fetching random move names on startup
   useEffect(() => {
-    console.log("runs when program starts")
 
     // only allows single words to be move names
     filterSingleWordsFromVerbsData()
@@ -37,8 +35,8 @@ function App() {
   useEffect(() => {
 
     if (!firstRender.current) {
-      console.log("runs after filtering")
       generateMoveNames()
+      
     }
     else {
       firstRender.current = false
@@ -74,7 +72,6 @@ function App() {
 
     setPlayer((prevPlayer) => {
       const updatedMoves = prevPlayer.moves.map((prevMove, index) => {
-        console.log(`move index ${index}`);
 
         if (prevMove.id === 1 || prevMove.type !== MoveTypes.DAMAGE) { // first move stays as default, and any healing moves stay the same
           return prevMove
@@ -97,7 +94,6 @@ function App() {
         const updatedMove = {
             ...prevMove,
             name: moveName,
-            description: "Attack your enemy"
         }
         return updatedMove
 
@@ -109,6 +105,61 @@ function App() {
         }
         return updatedPlayer
     })
+  }
+
+  // checks if the first custom move name has been changed. if yes, then generate descriptions
+  useEffect(() => {
+
+    const fourthMoveName = player.moves[4].name
+
+    // means all moves have been given custom names
+    if (fourthMoveName !== "Move 4") {
+      generateMoveDescriptions()
+    }
+
+  }, [player.moves[4].name])
+
+  function generateMoveDescriptions() {
+
+    const customMoves = [
+      player.moves[customMoveIds[0] - 1],
+      player.moves[customMoveIds[1] - 1],
+      player.moves[customMoveIds[2] - 1]
+    ]
+
+    console.log(customMoves)
+
+    customMoves.forEach((move) => {
+      fetchMoveDescription(move.name)
+        .then(moveDesc => {
+          console.log(moveDesc)
+          setPlayer((prevPlayer) => {
+            const updatedMoves = prevPlayer.moves.map((prevMove) => {
+              // if the current prevMove matches the move being checked, update the move with the desc
+              if (prevMove.id === move.id) {
+                const updatedMove = {
+                  ...prevMove,
+                  description: moveDesc
+                }
+                return updatedMove
+              }
+              else {
+                return prevMove
+              }
+            })
+            // moves have all been updated. assign to players moves
+            const updatedPlayer = {
+              ...prevPlayer,
+              moves: updatedMoves
+            }
+            return updatedPlayer
+          })
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    })
+    
   }
 
   function fetchMoveDescription(word) {
