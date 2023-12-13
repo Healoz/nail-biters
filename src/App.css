@@ -13,6 +13,7 @@ main {
   flex-direction: column;
   position: relative;
   /* background-color: rgb(255, 255, 255); */
+  overflow: hidden;
 }
 
 .game-scene {
@@ -86,7 +87,7 @@ main {
   display: flex;
   flex-direction: column;
   /* background-color: green; */
-  width: 40%;
+  width: 50%;
 }
 
 .player-info {
@@ -130,9 +131,23 @@ main {
 
 .player-sprite {
   display: flex;
-  overflow: hidden;
+  overflow: visible;
+  height: 100%;
   justify-content: center;
   position: relative;
+  transform-origin: center;
+  animation: sway 1s infinite alternate;
+  /* transition: transform 0.3s ease-out;; */
+}
+
+/* sprite idle animation */
+@keyframes sway {
+  0%, 100% {
+    transform: translateY(3px) rotateZ(-1deg);
+  }
+  100% {
+    transform: translateY(-4px) rotateZ(1deg);
+  }
 }
 
 .player-sprite img {
@@ -424,6 +439,10 @@ main {
   .move-grid {
     padding: 10vw;
   }
+
+  .player-sprite {
+    height: 110%;
+  }
 }
 
 /* Tablet */
@@ -441,6 +460,10 @@ main {
 
   .player-section {
     margin-right: 5vw;
+  }
+
+  .player-sprite {
+    height: 100%;
   }
 
   .enemy-section {
@@ -517,6 +540,10 @@ main {
     padding: 3vw;
     padding-left: 30vw;
     padding-right: 30vw;
+  }
+
+  .player-sprite {
+    height: 130%;
   }
 }
 

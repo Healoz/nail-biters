@@ -1,4 +1,4 @@
-import PlayerSprite from '../Images/player-placeholder.png';
+import PlayerSprite from '../Images/mc-sprite.png';
 import CharacterInfo from './CharacterInfo';
 import SpeechBubble from './SpeechBubble';
 import NumberFeedback from './NumberFeedback';

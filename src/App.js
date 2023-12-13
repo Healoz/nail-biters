@@ -24,6 +24,8 @@ function App() {
   const customMoveIds = [2, 4, 5]
 
 
+  // ------------------- MOVE GENERATION -------------------
+
   // fetching random move names on startup
   useEffect(() => {
 
@@ -107,6 +109,8 @@ function App() {
     })
   }
 
+  // ------------------- MOVE DESCRIPTIONS -------------------
+
   // checks if the first custom move name has been changed. if yes, then generate descriptions
   useEffect(() => {
 
@@ -127,12 +131,10 @@ function App() {
       player.moves[customMoveIds[2] - 1]
     ]
 
-    console.log(customMoves)
-
     customMoves.forEach((move) => {
       fetchMoveDescription(move.name)
         .then(moveDesc => {
-          console.log(moveDesc)
+          // console.log(moveDesc)
           setPlayer((prevPlayer) => {
             const updatedMoves = prevPlayer.moves.map((prevMove) => {
               // if the current prevMove matches the move being checked, update the move with the desc
@@ -185,13 +187,13 @@ function App() {
 
   function getMoveDescFromData(data) {
     const firstWordData = data[0]
-    console.log(firstWordData)
+    // console.log(firstWordData)
     const meanings = firstWordData.meanings
     let definition = "Attack your enemy"
 
     meanings.forEach(meaning => {
       if (meaning.partOfSpeech === "verb") {
-        console.log("meaning is a verb")
+        // console.log("meaning is a verb")
         const definitionArray = meaning.definitions[0]
         definition = definitionArray.definition
       }
@@ -199,6 +201,8 @@ function App() {
 
     return definition
   }
+
+  // ------------------- TURN CYCLE -------------------
 
   // changes when currentTurn changes
   useEffect(() => {
@@ -243,6 +247,8 @@ function App() {
     }
 
   },[player.currentHealth, enemy.currentHealth])
+
+  // ------------------- COMPLETING MOVES -------------------
 
   function completeEnemyMove() {
     const moveSelected = selectEnemyMove();
@@ -402,7 +408,7 @@ function App() {
 
   async function completeDamageMove(move) {
 
-    const damage = calculateDamage(move.damageMin, move.damageMax)
+    const damage = generateRandNum(move.damageMin, move.damageMax)
     
     // console.log(damage)
     // picks the victim / user depending on whose turn it is
@@ -431,6 +437,8 @@ function App() {
     await playNumberAnimation(moveVictimSetFunction, MoveTypes.DAMAGE, damage)
   }
 
+  // ------------------- FEEDBACK ANIMATION -------------------
+
   function playNumberAnimation(characterSetFunction, moveType, number) {
 
     characterSetFunction(prevCharacter => ({...prevCharacter, numberIndicatorShown: true, currentMoveType: moveType}))
@@ -450,7 +458,7 @@ function App() {
     })
   }
   
-  function calculateDamage(min, max) {
+  function generateRandNum(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
