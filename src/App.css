@@ -5,16 +5,132 @@
   font-family: 'Days One', sans-serif;
 }
 
+button {
+  /* Reset default button styles */
+  margin: 0;
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+:root {
+  --grey1: #5A5A5A;
+}
+
 /* Mobile */
+
+/* Background elements ------------------ */
 
 main {
   height: 100dvh;
   display: flex;
   flex-direction: column;
   position: relative;
-  /* background-color: rgb(255, 255, 255); */
+  background-color: var(--grey1);
   overflow: hidden;
+  background-image: url('./Images/dotted_black_background.png');
+  background-repeat: repeat;
+  background-size: 1600px 900px;
+  animation: animateTexture 30s linear infinite;
 }
+
+/* animating bg texture */
+@keyframes animateTexture {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1600px 900px;
+  }
+}
+
+.background-scene {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  /* background-color: rgba(136, 136, 255, 0.244);  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blob {
+  /* background-color: blue; */
+  background-image: url('./Images/bg-blob-2.svg');
+  position: absolute;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 70%;
+  height: 70%;
+  animation: blob-rotate 5s alternate ease-in-out infinite;
+}
+
+.clouds {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: visible;
+  position: absolute;
+  background-image: url('./Images/mobile-clouds.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: cloud-float 6s ease-in-out infinite;
+}
+
+/* changing blob img */
+@media screen and (min-width: 900px) {
+  .blob {
+    background-image: url('./Images/bg-blob.svg');
+    width: 90%;
+    height: 90%;
+  }
+
+  .clouds {
+    background-image: url('./Images/desktop-clouds.png');
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+  }
+}
+
+/* blob animation */
+@keyframes blob-rotate {
+  from {
+    transform: rotate(3deg);
+  }
+
+  to {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes cloud-float {
+  0% {
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(20px);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+}
+
+
 
 .game-scene {
   /* background-color: rgba(0, 0, 255, 0.443); */
@@ -55,7 +171,6 @@ main {
   left: 0;
   right: 0;
   z-index: 4;
-  
   overflow: hidden;
 }
 
@@ -69,13 +184,59 @@ main {
   transition: transform 0.4s ease-out;
 }
 
+.move-grid button {
+  background-color: black;
+  color: white;
+  transform: skew(-3deg);
+  display: flex;
+  width: 100%;
+}
+
+.move-grid button .button-contents {
+  transform: skew(3deg);
+  text-align: start;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  height: 100%;
+}
+
 .move-name {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
   text-transform: capitalize;
+}
+
+.move-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.move-stats p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  transform: skew(-10deg);
+  gap: 0.5rem;
+}
+
+.move-stats .dmg {
+  background-color: white;
+  color: #FF1313;
+}
+
+.move-stats .mana {
+  background-color: #CFF27E;
+  color: black;
 }
 
 .move-desc {
   margin-bottom: 0.3rem;
+  font-size: 0.9rem;
 }
 
 .move-grid-hidden {

@@ -5,6 +5,7 @@ import MoveSelection from './Components/MoveSelection';
 import GameScene from './Components/GameScene';
 import { playerStructure, enemyStructure } from './Characters';
 import FightOverMenu from './Components/FightOverMenu';
+import BackgroundScene from './Components/BackgroundScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { MoveTypes } from './MoveTypes';
 import aggressiveVerbsData from './aggressiveVerbsData';
@@ -504,19 +505,20 @@ function App() {
   return (
     <div className="App">
       <main>
-        {player.isDead && <FightOverMenu battleWon={false} nextBattle={nextBattle} />}
-        {enemy.isDead && <FightOverMenu battleWon={true} nextBattle={nextBattle}/>}
-        <GameScene 
-          player={player}
-          enemy={enemy}
-          currentPointIndicator={currentPointIndicator}
-        />
-        <MoveSelection 
-          moves={player.moves}
-          moveSelected={moveSelected}
-          isPlayerTurn={player.isCurrentTurn}
-          playerCurrentMana={player.currentMana}    
-        />
+        <BackgroundScene></BackgroundScene>
+          {player.isDead && <FightOverMenu battleWon={false} nextBattle={nextBattle} />}
+          {enemy.isDead && <FightOverMenu battleWon={true} nextBattle={nextBattle}/>}
+          <GameScene 
+            player={player}
+            enemy={enemy}
+            currentPointIndicator={currentPointIndicator}
+          />
+          <MoveSelection 
+            moves={player.moves}
+            moveSelected={moveSelected}
+            isPlayerTurn={player.isCurrentTurn}
+            playerCurrentMana={player.currentMana}    
+          />
       </main>
       
     </div>

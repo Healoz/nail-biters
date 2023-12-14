@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { MoveTypes } from '../MoveTypes';
+import SwordIcon from '../Images/jam_sword-f.svg';
+import EnergyIcon from '../Images/ph_lightning-fill.svg';
 
-export default function MoveSelection(props) {
+
+export default function Move(props) {
 
     const styles = {
         opacity: '0.5'
@@ -17,10 +20,16 @@ export default function MoveSelection(props) {
                     onClick={hasResources ? () => props.moveSelected(props.id) : null}
                     style={!hasResources ? styles : {}}
                 >
-                    <p className='move-name'>{props.move.name}</p>
-                    <p className='move-desc'>{props.move.description}</p>
-                    <p>Damage: {props.move.damageMin} - {props.move.damageMax}</p>
-                    <p>Mana cost: {props.move.manaCost}</p>
+                    <div className='button-contents'>
+                        <div className='move-info'>
+                            <p className='move-name'>{props.move.name}</p>
+                            <p className='move-desc'>{props.move.description}</p>
+                        </div>
+                        <div className='move-stats'>
+                            <p className='dmg'><img src={SwordIcon}/> {props.move.damageMin} - {props.move.damageMax}</p>
+                            <p className='mana'><img src={EnergyIcon}/> {props.move.manaCost}</p>
+                        </div>
+                    </div>
                 </button>
             )}
             {props.move.type === MoveTypes.HEALING && (
@@ -29,9 +38,11 @@ export default function MoveSelection(props) {
                     onClick={hasResources ? () => props.moveSelected(props.id) : null}
                     style={!hasResources ? styles : {}}
                 >
-                    <p className='move-name'>{props.move.name}</p>
-                    <p>Restores: {props.move.restoreAmount}</p>
-                    <p>Quantity: {props.move.quantity}</p>
+                    <div className='button-contents'>
+                        <p className='move-name'>{props.move.name}</p>
+                        {/* <p>Restores: {props.move.restoreAmount}</p>
+                        <p>Quantity: {props.move.quantity}</p> */}
+                    </div>
                 </button>
             )}
             {props.move.type === MoveTypes.MANA_RESTORATION && (
@@ -40,9 +51,11 @@ export default function MoveSelection(props) {
                     onClick={hasResources ? () => props.moveSelected(props.id) : null}
                     style={!hasResources ? styles : {}}
                 >
-                    <p className='move-name'>{props.move.name}</p>
-                    <p>Restores: {props.move.restoreAmount}</p>
-                    <p>Quantity: {props.move.quantity}</p>
+                    <div className='button-contents'>
+                        <p className='move-name'>{props.move.name}</p>
+                        {/* <p>Restores: {props.move.restoreAmount}</p>
+                        <p>Quantity: {props.move.quantity}</p> */}
+                    </div>
                 </button>
             )}
         </>
