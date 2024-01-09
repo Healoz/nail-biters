@@ -1,10 +1,10 @@
 import './App.css';
 import './ShakeAnimation.css';
-import ShakingText from './Components/ShakingText';
-import MoveSelection from './Components/MoveSelection';
-import GameScene from './Components/GameScene';
+import ShakingText from './Components/ShakingText/ShakingText';
+import MoveSelection from './Components/MoveSelection/MoveSelection';
+import GameScene from './Components/GameScene/GameScene';
 import { playerStructure, enemyStructure } from './Characters';
-import FightOverMenu from './Components/FightOverMenu';
+import FightOverMenu from './Components/FightOverMenu/FightOverMenu';
 import BackgroundScene from './Components/BackgroundScene/BackgroundScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { MoveTypes } from './MoveTypes';

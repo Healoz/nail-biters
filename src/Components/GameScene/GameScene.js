@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import PlayerSection from './PlayerSection';
-import EnemySection from './EnemySection';
+import PlayerSection from '../PlayerSection/PlayerSection';
+import EnemySection from '../EnemySection/EnemySection';
 
 export default function GameScene(props) {
 

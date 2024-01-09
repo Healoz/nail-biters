@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { MoveTypes } from '../MoveTypes';
-import { ReactComponent as SwordIcon } from '../Images/jam_sword-f.svg';
-import { ReactComponent as EnergyIcon } from '../Images/ph_lightning-fill.svg';
+import { MoveTypes } from '../../MoveTypes';
+import { ReactComponent as SwordIcon } from '../../Images/jam_sword-f.svg';
+import { ReactComponent as EnergyIcon } from '../../Images/ph_lightning-fill.svg';
 
 
 export default function Move(props) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ShakingText.css';
 
 export default function ShakingText(props) {
 

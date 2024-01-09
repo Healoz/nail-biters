@@ -48,52 +48,6 @@ main {
   }
 }
 
-/* changing blob img */
-@media screen and (min-width: 900px) {
-  .blob {
-    background-image: url('./Images/bg-blob.svg');
-    width: 90%;
-    height: 90%;
-  }
-
-  .clouds {
-    background-image: url('./Images/desktop-clouds.png');
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-  }
-}
-
-/* blob animation */
-@keyframes blob-rotate {
-  from {
-    transform: rotate(3deg);
-  }
-
-  to {
-    transform: rotate(-3deg);
-  }
-}
-
-@keyframes cloud-float {
-  0% {
-    transform: translateY(0px);
-    opacity: 0.5;
-  }
-
-  50% {
-    transform: translateY(20px);
-    opacity: 0.9;
-  }
-
-  100% {
-    transform: translateY(0px);
-    opacity: 0.5;
-  }
-}
-
-
-
 .game-scene {
   /* background-color: rgba(0, 0, 255, 0.443); */
   height: 85%;

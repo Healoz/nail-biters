@@ -1,7 +1,7 @@
-import CharacterInfo from './CharacterInfo';
-import EnemySprite from '../Images/enemy-placeholder.png';
-import SpeechBubble from './SpeechBubble';
-import NumberFeedback from './NumberFeedback';
+import CharacterInfo from '../CharacterInfo/CharacterInfo';
+import EnemySprite from '../../Images/enemy-placeholder.png';
+import SpeechBubble from '../SpeechBubble/SpeechBubble';
+import NumberFeedback from '../NumberFeedback/NumberFeedback';
 
 export default function EnemySection(props) {
 

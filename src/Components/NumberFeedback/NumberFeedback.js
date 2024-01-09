@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MoveTypes } from '../MoveTypes';
+import { MoveTypes } from '../../MoveTypes';
 
 export default function NumberFeedback(props) {
 

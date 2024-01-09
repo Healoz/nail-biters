@@ -1,7 +1,7 @@
-import PlayerSprite from '../Images/mc-sprite.png';
-import CharacterInfo from './CharacterInfo';
-import SpeechBubble from './SpeechBubble';
-import NumberFeedback from './NumberFeedback';
+import PlayerSprite from '../../Images/mc-sprite.png';
+import CharacterInfo from '../CharacterInfo/CharacterInfo';
+import SpeechBubble from '../SpeechBubble/SpeechBubble';
+import NumberFeedback from '../NumberFeedback/NumberFeedback';
 
 export default function PlayerSection(props) {
 

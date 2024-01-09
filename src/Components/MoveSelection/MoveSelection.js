@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Move from './Move';
+import Move from '../Move/Move';
 
 export default function MoveSelection(props) {
 
