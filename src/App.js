@@ -5,7 +5,7 @@ import MoveSelection from './Components/MoveSelection';
 import GameScene from './Components/GameScene';
 import { playerStructure, enemyStructure } from './Characters';
 import FightOverMenu from './Components/FightOverMenu';
-import BackgroundScene from './Components/BackgroundScene';
+import BackgroundScene from './Components/BackgroundScene/BackgroundScene';
 import React, { useState, useEffect, useRef } from 'react';
 import { MoveTypes } from './MoveTypes';
 import aggressiveVerbsData from './aggressiveVerbsData';

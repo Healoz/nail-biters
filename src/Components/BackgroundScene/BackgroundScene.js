@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './BackgroundScene.css';
+
 export default function BackgroundScene(props) {
 
     return (

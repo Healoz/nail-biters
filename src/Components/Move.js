@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MoveTypes } from '../MoveTypes';
-import SwordIcon from '../Images/jam_sword-f.svg';
-import EnergyIcon from '../Images/ph_lightning-fill.svg';
+import { ReactComponent as SwordIcon } from '../Images/jam_sword-f.svg';
+import { ReactComponent as EnergyIcon } from '../Images/ph_lightning-fill.svg';
 
 
 export default function Move(props) {
@@ -23,11 +23,11 @@ export default function Move(props) {
                     <div className='button-contents'>
                         <div className='move-info'>
                             <p className='move-name'>{props.move.name}</p>
-                            <p className='move-desc'>{props.move.description}</p>
+                            {/* <p className='move-desc'>{props.move.description}</p> */}
                         </div>
                         <div className='move-stats'>
-                            <p className='dmg'><img src={SwordIcon}/> {props.move.damageMin} - {props.move.damageMax}</p>
-                            <p className='mana'><img src={EnergyIcon}/> {props.move.manaCost}</p>
+                            <p className='dmg'><SwordIcon /> {props.move.damageMin} - {props.move.damageMax}</p>
+                            <p className='mana'><EnergyIcon /> {props.move.manaCost}</p>
                         </div>
                     </div>
                 </button>
@@ -37,6 +37,7 @@ export default function Move(props) {
                 <button
                     onClick={hasResources ? () => props.moveSelected(props.id) : null}
                     style={!hasResources ? styles : {}}
+                    className='health-potion'
                 >
                     <div className='button-contents'>
                         <p className='move-name'>{props.move.name}</p>
@@ -50,6 +51,7 @@ export default function Move(props) {
                 <button
                     onClick={hasResources ? () => props.moveSelected(props.id) : null}
                     style={!hasResources ? styles : {}}
+                    className='mana-potion'
                 >
                     <div className='button-contents'>
                         <p className='move-name'>{props.move.name}</p>

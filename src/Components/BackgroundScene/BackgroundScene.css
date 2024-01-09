@@ -1,0 +1,81 @@
+.background-scene {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    /* background-color: rgba(136, 136, 255, 0.244);  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .blob {
+    /* background-color: blue; */
+    background-image: url('../../Images/bg-blob-2.svg');
+    position: absolute;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 70%;
+    height: 70%;
+    animation: blob-rotate 5s alternate ease-in-out infinite;
+  }
+  
+  .clouds {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: visible;
+    position: absolute;
+    background-image: url('../../Images/mobile-clouds.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: cloud-float 6s ease-in-out infinite;
+  }
+
+  /* changing blob img */
+@media screen and (min-width: 900px) {
+    .blob {
+      background-image: url('../../Images/bg-blob.svg');
+      width: 90%;
+      height: 90%;
+    }
+  
+    .clouds {
+      background-image: url('../../Images/desktop-clouds.png');
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+    }
+  }
+  
+  /* blob animation */
+  @keyframes blob-rotate {
+    from {
+      transform: rotate(3deg);
+    }
+  
+    to {
+      transform: rotate(-3deg);
+    }
+  }
+  
+  @keyframes cloud-float {
+    0% {
+      transform: translateY(0px);
+      opacity: 0.5;
+    }
+  
+    50% {
+      transform: translateY(20px);
+      opacity: 0.9;
+    }
+  
+    100% {
+      transform: translateY(0px);
+      opacity: 0.5;
+    }
+  }
