@@ -1,3 +1,5 @@
+import './FightOverMenu.css';
+
 export default function FightOverMenu(props) {
 
     return (

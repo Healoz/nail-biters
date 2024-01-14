@@ -1,3 +1,5 @@
+import './SpeechBubble.css';
+
 export default function SpeechBubble(props) {
 
     return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Move from '../Move/Move';
+import './MoveSelection.css';
 
 export default function MoveSelection(props) {
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MoveTypes } from '../../MoveTypes';
+import './NumberFeedback.css';
 
 export default function NumberFeedback(props) {
 

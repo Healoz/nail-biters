@@ -1,0 +1,161 @@
+.move-selection {
+    /* background-color: rgba(255, 0, 0, 0.516); */
+    /* height: 35%; */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    overflow: hidden;
+  }
+  
+  .move-grid {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.62rem;
+    padding: 0.62rem;
+    transition: transform 0.4s ease-out;
+  }
+
+  .move-grid button {
+    background-color: black;
+    color: white;
+    transform: skew(-6deg);
+    display: flex;
+    width: 100%;
+    transition: all 0.05s ease-out;
+  }
+  
+  /* showing hover styles on move button */
+  .move-grid button:hover {
+    background-color: white;
+    color: black;
+    transform: scale(1.2);
+  }
+  
+  /* every second button rotates the other direction */
+  .move-grid > :nth-child(2n):hover {
+    transform: rotate(-2deg);
+  }
+  
+  .move-grid > :nth-child(2n-1):hover {
+    transform: rotate(2deg);
+  }
+  
+  .move-grid button * {
+    transition: all 0.1s ease-out;
+  }
+  
+  .move-grid button:hover .move-stats .dmg {
+    color: white;
+    background-color: #FF1313;
+  }
+  
+  .move-grid button:hover .move-stats .mana {
+    color: #CFF27E;
+    background-color: black;
+  }
+  
+  .move-grid button:hover .dmg svg path {
+    fill: white;
+  }
+  
+  .move-grid button:hover .mana svg path {
+    fill: #CFF27E;
+  }
+  
+  /* changing order based on grid layout */
+  .move-grid .health-potion {
+    order: 1;
+  }
+  
+  .move-grid button .button-contents {
+    transform: skew(6deg);
+    text-align: start;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .move-grid-hidden {
+    transform: translateY(100%) scale(0.3);
+  }
+
+  /* adjusting grid */
+    @media screen and (min-width: 520px) {
+    .move-grid {
+      grid-template-columns: 1fr 1fr 0.4fr;
+    }
+  
+    .move-grid .health-potion {
+      order: unset;
+    }
+  
+  }
+  
+  /* Minor fixes */
+  @media screen and (min-width: 450px) {
+  
+    .move-stats p {
+      font-size: 0.8rem;
+    }
+    
+    .move-stats img {
+      display: unset;
+    }
+  
+  }
+
+  /* Tablet */
+@media screen and (min-width: 768px) {
+    .move-grid {
+        /* padding: 3vw; */
+        padding-left: 10vw;
+        padding-right: 10vw;
+      }
+}
+
+/* Minor fixes */
+@media screen and (min-width: 854px) {
+    .move-grid button .button-contents {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+      }
+}
+
+/* Minor fixes */
+@media screen and (min-width: 1050px) {
+    .move-grid {
+        /* padding: 3vw; */
+        padding-left: 15vw;
+        padding-right: 15vw;
+      }
+    
+      .move-grid button .button-contents {
+        padding: 1.2rem;
+      }
+}
+
+/* Desktop */
+@media screen and (min-width: 1200px) {
+    .move-grid {
+        /* padding: 3vw; */
+        padding-left: 20vw;
+        padding-right: 20vw;
+      }
+}
+
+/* Desktop */
+@media screen and (min-width: 1350px) {
+    .move-grid {
+        /* padding: 3vw; */
+        padding-left: 20vw;
+        padding-right: 20vw;
+    }
+}

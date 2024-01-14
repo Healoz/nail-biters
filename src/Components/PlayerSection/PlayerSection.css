@@ -1,0 +1,44 @@
+.player-section {
+    /* background-color: rgba(255, 0, 0, 0.5); */
+    z-index: 3;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    display: flex;
+    flex-direction: row;
+    padding: 1.25rem;
+  }
+
+  .player {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: green; */
+    width: 50%;
+  }
+
+  .player-sprite {
+    display: flex;
+    overflow: visible;
+    height: 100%;
+    justify-content: center;
+    position: relative;
+    transform-origin: center;
+    animation: sway 1s infinite alternate;
+  }
+
+  /* sprite idle animation */
+@keyframes sway {
+    0%, 100% {
+      transform: translateY(3px) rotateZ(-1deg) skewX(2deg);
+    }
+    100% {
+      transform: translateY(-4px) rotateZ(1deg) skewX(-2deg);
+    }
+  }
+  
+  .player-sprite img {
+    object-fit: cover;
+  }

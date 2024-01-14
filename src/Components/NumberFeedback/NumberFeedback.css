@@ -1,0 +1,114 @@
+.damage-feedback {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .damage-number {
+    font-size: 1.5rem;
+    color: #fff; /* Text color */
+    animation-duration: 2.5s;
+    animation-timing-function: cubic-bezier(.17,.67,0,1.56);
+    opacity: 0;
+    margin-bottom: 3rem;
+  }
+
+  .damage-colour {
+    text-shadow:
+      -2px -2px 0 red,
+      2px -2px 0 red,
+      -2px 2px 0 red,
+      2px 2px 0 red;
+  }
+  
+  .heal-colour {
+    text-shadow:
+      -2px -2px 0 green,
+      2px -2px 0 green,
+      -2px 2px 0 green,
+      2px 2px 0 green;
+  }
+  
+  .mana-colour {
+    text-shadow:
+      -2px -2px 0 rgb(0, 208, 255),
+      2px -2px 0 rgb(0, 208, 255),
+      -2px 2px 0 rgb(0, 208, 255),
+      2px 2px 0 rgb(0, 208, 255);
+  }
+  
+  .damage-animation-1 {
+    animation-name: appearFlyAndFade1;
+  }
+  
+  .damage-animation-2 {
+    animation-name: appearFlyAndFade2;
+  }
+  
+  .damage-animation-3 {
+    animation-name: appearFlyAndFade3;
+  }
+  
+  .damage-animation-4 {
+    animation-name: appearFlyAndFade4;
+  }
+  
+  @keyframes appearFlyAndFade1 {
+    0% {
+      display: block;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(120%, 120%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes appearFlyAndFade2 {
+    0% {
+      display: block;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(120%, -120%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes appearFlyAndFade3 {
+    0% {
+      display: block;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-120%, 120%);
+      opacity: 0;
+    }
+  }
+  
+  @keyframes appearFlyAndFade4 {
+    0% {
+      display: block;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-120%, -120%);
+      opacity: 0;
+    }
+  }

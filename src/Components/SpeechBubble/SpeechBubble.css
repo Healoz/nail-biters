@@ -1,0 +1,41 @@
+.player-speech-bubble {
+    display: flex;
+    /* background-color: pink; */
+    width: 60%;
+    position: relative;
+  }
+  
+  .speech-bubble {
+    padding: 1rem;
+    /* background-color: red; */
+    position: relative;
+  }
+  
+  .speech-bubble p {
+    padding: 1.3rem;
+    color: white;
+    background-color: black;
+    margin-top: 60%;
+    z-index: 5;
+    position: relative;
+  }
+  
+  .speech-bubble p::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -10%;
+    border-width: 30px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0) transparent transparent transparent;
+    z-index: 4;
+  }
+  
+  .bubble {
+    transition: all 0.3s ease-out;
+  }
+  
+  .bubble-hidden {
+    opacity: 0;
+    transform: translateX(-50%);
+  }

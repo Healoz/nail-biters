@@ -2,6 +2,7 @@ import CharacterInfo from '../CharacterInfo/CharacterInfo';
 import EnemySprite from '../../Images/enemy-placeholder.png';
 import SpeechBubble from '../SpeechBubble/SpeechBubble';
 import NumberFeedback from '../NumberFeedback/NumberFeedback';
+import './EnemySection.css';
 
 export default function EnemySection(props) {
 

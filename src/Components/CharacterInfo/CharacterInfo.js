@@ -1,3 +1,5 @@
+import './CharacterInfo.css';
+
 export default function CharacterInfo(props) {
 
     function calculatePercentage(total, currentVal) {

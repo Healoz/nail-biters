@@ -2,6 +2,7 @@ import PlayerSprite from '../../Images/mc-sprite.png';
 import CharacterInfo from '../CharacterInfo/CharacterInfo';
 import SpeechBubble from '../SpeechBubble/SpeechBubble';
 import NumberFeedback from '../NumberFeedback/NumberFeedback';
+import './PlayerSection.css';
 
 export default function PlayerSection(props) {
 
